@@ -2,20 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+.paddX {
+    @apply px-4 sm:px-8 md:px-12 lg:px-16;
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.center {
+    @apply flex items-center justify-center
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.active {
+    @apply text-white bg-blue-500
+}
+
+.correct {
+    animation: correct 1s ease forwards
+}
+
+@keyframes correct {
+
+    0%,
+    22%,
+    42% {
+        @apply bg-blue-600
+    }
+
+    20%, 40%, 60% {
+        @apply bg-blue-800
+    }
+
+    62%, 100% {
+        @apply bg-green-600
+    }
+}
+
+/* ================================================== */
+.wrong {
+    animation: wrong 1s ease forwards
+}
+
+
+@keyframes wrong {
+
+    0%,
+    22%,
+    42% {
+        @apply bg-blue-600
+    }
+
+    20%, 40%, 60% {
+        @apply bg-blue-800
+    }
+
+    62%, 100% {
+        @apply bg-red-600
+    }
 }
