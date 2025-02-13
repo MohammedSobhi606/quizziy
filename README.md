@@ -16,21 +16,29 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+Quizziy: Your Ultimate Quiz Experience
+Quizziy is a dynamic and engaging quiz application designed to test your knowledge across a wide range of topics, from general knowledge to specialized subjects like Islam, technology, history, and more. Built with the MERN stack (MongoDB, Express.js, React.js, and Node.js), Quizziy offers a seamless and interactive user experience.
 
-To learn more about Next.js, take a look at the following resources:
+Key Features:
+Diverse Quiz Categories: Choose from a variety of topics to challenge yourself or learn something new.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+User-Friendly Interface: A clean and intuitive design makes it easy to navigate and enjoy the app.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Personalized Quizzes: Create and share your own quizzes with the community.
 
-## Deploy on Vercel
+Real-Time Feedback: Get instant results and detailed explanations for each question.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Progress Tracking: Track your performance and improve over time with detailed analytics.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Responsive Design: Access Quizziy on any device, whether it’s a desktop, tablet, or smartphone.
+
+Why Quizziy?
+Engaging and Fun: With interactive features and hand-drawn annotations (powered by Rough Notation), Quizziy makes learning enjoyable.
+
+Community-Driven: Share your quizzes, challenge friends, and compete on leaderboards.
+
+Always Evolving: New quizzes and features are added regularly to keep the experience fresh and exciting.
+
+Whether you're a trivia enthusiast, a student, or just looking to pass the time, Quizziy is your go-to app for fun and knowledge. Start quizzing today and see how much you really know!
