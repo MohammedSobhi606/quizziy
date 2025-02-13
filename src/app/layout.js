@@ -1,14 +1,15 @@
 import { Roboto_Condensed, Cairo } from "next/font/google";
 import "./globals.css";
 import { MyContextProvider } from "@/context/quizzContext";
-
+import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const roboto = Roboto_Condensed({
   subsets: ["latin"],
 
 });
 const cairo = Cairo({
-
   subsets: ["latin"],
 });
 
@@ -22,10 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${roboto.className}  `}
+        className={`${roboto.className}`}
       >
         <MyContextProvider>
-          {children}
+          <Toaster />
+          <Suspense fallback={<Loading />}>
+            {children}</Suspense>
         </MyContextProvider>
       </body>
     </html>

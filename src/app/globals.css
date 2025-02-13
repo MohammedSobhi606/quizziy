@@ -59,3 +59,46 @@
         @apply bg-red-600
     }
 }
+
+
+
+.showResultScreen {
+    scale: 1;
+}
+
+.smooth-appearance-top {
+
+    transform-origin: top;
+    animation: scaleTop .3s ease-in-out forwards;
+}
+
+@keyframes scaleTop {
+
+    0% {
+        scale: 0;
+    }
+
+    100% {
+        scale: 1;
+    }
+
+}
+
+/* ==================================== */
+.smooth-appearance-center {
+
+    transform-origin: center center;
+    animation: scalecenter .3s ease-in-out forwards;
+}
+
+@keyframes scalecenter {
+
+    0% {
+        scale: 0;
+    }
+
+    100% {
+        scale: 1;
+    }
+
+}

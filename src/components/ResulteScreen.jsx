@@ -4,9 +4,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const ResulteScreen = ({
-  scale,
+  displayresult,
   setdisplayresult,
   score,
   setscore,
@@ -15,8 +16,9 @@ const ResulteScreen = ({
   setclassNameOfSelectedAns,
   setselctedAnswerId,
   setendQuestionIndicator,
+  setTimeOut,
 }) => {
-  const percentage = (score / numberOfQues) * 100;
+  const percentage = Math.ceil((score / numberOfQues) * 100);
   let emoji =
     percentage > 80 ? "smile" : percentage >= 50 ? "sad" : "exploding";
 
@@ -27,16 +29,20 @@ const ResulteScreen = ({
   };
 
   function handelTryAgain() {
-    setdisplayresult(0);
+    setdisplayresult(null);
     setCurrentQuestion(0);
     setclassNameOfSelectedAns("");
     setselctedAnswerId(null);
     setscore(0);
     setendQuestionIndicator(false);
+    setTimeOut(false);
   }
+
   return (
     <div
-      className={`w-full h-screen bg-black bg-opacity-80 center fixed scale-${scale} transition-[transform] ease-in-out duration-500 origin-center z-10 top-0 left-0`}
+      className={`${
+        displayresult ? displayresult : "scale-0"
+      }  w-full h-screen bg-black bg-opacity-80 center fixed  transition-[transform] ease-in-out duration-500 origin-center z-10 top-0 left-0`}
     >
       <section className="max-md:w-[95%] p-6  w-5/12 bg-white shadow-sm rounded-md center flex-col gap-4 ">
         <img

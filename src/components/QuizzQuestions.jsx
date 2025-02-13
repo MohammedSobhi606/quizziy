@@ -1,7 +1,5 @@
 "use client";
 
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 //=====================sounds hook================
@@ -9,10 +7,10 @@ import useSound from "use-sound";
 import ResulteScreen from "./ResulteScreen";
 
 function QuizzQuestions({
-  questions,
+  quizzQuestions,
   selectedQuiz,
   timeOut,
-
+  setTimeOut,
   currentQuestion,
   setCurrentQuestion,
 }) {
@@ -23,29 +21,45 @@ function QuizzQuestions({
   const [selectSound] = useSound("/sounds/select.wav");
   //=======================sounds hook to extract functions
   const [selctedAnswerId, setselctedAnswerId] = useState(null);
+  const [questions, setquizzQuestions] = useState(quizzQuestions);
   // save score to display after quizz ended
   const [score, setscore] = useState(0);
   // display depend on scall
-  const [displayresult, setdisplayresult] = useState(0);
+  const [displayresult, setdisplayresult] = useState(null);
   //================================================================
   const [classNameOfSelectedAns, setclassNameOfSelectedAns] = useState("");
   const [correctAnswer, setcorrectAnswer] = useState(null);
 
   const [endQuestionIndicator, setendQuestionIndicator] = useState(false);
 
-  const handelNextquestion = () => {
-    if (!endQuestionIndicator) {
-      if (selctedAnswerId !== null) {
-        setCurrentQuestion((prev) => prev + 1);
-        setclassNameOfSelectedAns("");
-      }
-      setselctedAnswerId(null);
+  // use effect to detect the end state of quiz question and reset the correct answer
+  useEffect(() => {
+    setcorrectAnswer(questions[currentQuestion].correctAnswer);
+    if (currentQuestion + 1 === questions.length) {
+      setendQuestionIndicator(true);
+    } else {
+      setendQuestionIndicator(false);
     }
+  }, [currentQuestion]);
+
+  const handelNextquestion = () => {
+    if (endQuestionIndicator) {
+      setdisplayresult(100);
+      setclassNameOfSelectedAns("");
+      setselctedAnswerId(null);
+      return;
+    }
+    if (selctedAnswerId === null) {
+      return alert("please select answer");
+    }
+    setCurrentQuestion((prev) => prev + 1);
+    setclassNameOfSelectedAns("");
+    setselctedAnswerId(null);
   };
   const handelSelectAnswer = (answerId) => {
+    selectSound();
     setselctedAnswerId(answerId);
     setclassNameOfSelectedAns("active");
-    selectSound();
   };
   // check if the selectedanswer is correct or not
   useEffect(() => {
@@ -67,36 +81,39 @@ function QuizzQuestions({
     }
   }, [selctedAnswerId]);
 
-  // use effect to detect the end state of quiz question
-  useEffect(() => {
-    setcorrectAnswer(questions[currentQuestion].correctAnswer);
-    if (currentQuestion + 1 === questions.length) {
-      setendQuestionIndicator(true);
-    } else {
-      setendQuestionIndicator(false);
-    }
-  }, [currentQuestion]);
   // function to update the statstics of the selctedquizz questions
   const updateQuizStatstics = (isCorrect) => {
     const updatedQuestionState = questions[currentQuestion];
     updatedQuestionState.answeredResult = isCorrect ? 1 : 0;
-    updatedQuestionState.statstics.totalAttempts++;
-    updatedQuestionState.statstics.correctAttempts += isCorrect ? 1 : 0;
-    updatedQuestionState.statstics.incorrectAttempts += isCorrect ? 0 : 1;
+    updatedQuestionState.statistics.totalAttempts++;
+    updatedQuestionState.statistics.correctAttempts += isCorrect ? 1 : 0;
+    updatedQuestionState.statistics.incorrectAttempts += isCorrect ? 0 : 1;
   };
 
   useEffect(() => {
-    if (selctedAnswerId) {
+    if (selctedAnswerId !== null && timeOut) {
       handelNextquestion();
+      setTimeOut(false);
       return;
     }
     if (timeOut) {
-      if (!endQuestionIndicator) {
+      if (!endQuestionIndicator && selctedAnswerId === null) {
         wrongSound();
         setCurrentQuestion((prev) => prev + 1);
         setclassNameOfSelectedAns("");
+        updateQuizStatstics(false);
+        setTimeOut(false);
+        return;
       }
-      updateQuizStatstics(false);
+      if (endQuestionIndicator && selctedAnswerId !== null) {
+        handelNextquestion();
+        setTimeOut(false);
+      }
+      if (endQuestionIndicator && selctedAnswerId === null) {
+        updateQuizStatstics(false);
+        setdisplayresult(100);
+        setTimeOut(false);
+      }
     }
   }, [timeOut]);
 
@@ -110,14 +127,14 @@ function QuizzQuestions({
           </span>
           {/*  question */}
           <p className="text-lg max-md:text-sm text-gray-900">
-            {questions[currentQuestion].question}
+            {questions[currentQuestion].mainQuestion}
           </p>
         </div>
         <hr className="bg-gray-500" />
         {/* answers part */}
         <div className="flex flex-col gap-2 mt-7 md:ml-11 ">
-          {questions[currentQuestion].options.length > 0 &&
-            questions[currentQuestion].options.map((option, inx) => (
+          {questions[currentQuestion].choices.length > 0 &&
+            questions[currentQuestion].choices.map((option, inx) => (
               <div
                 key={inx}
                 onClick={() => handelSelectAnswer(inx)}
@@ -138,7 +155,7 @@ function QuizzQuestions({
           <SubmitButton setdisplayresult={setdisplayresult} />
         )}
         <ResulteScreen
-          scale={displayresult}
+          displayresult={displayresult}
           setdisplayresult={setdisplayresult}
           score={score}
           setscore={setscore}
@@ -147,6 +164,7 @@ function QuizzQuestions({
           setclassNameOfSelectedAns={setclassNameOfSelectedAns}
           setselctedAnswerId={setselctedAnswerId}
           setendQuestionIndicator={setendQuestionIndicator}
+          setTimeOut={setTimeOut}
         />
       </div>
     );
@@ -175,7 +193,7 @@ const NextButton = ({ handelNextquestion }) => {
 const SubmitButton = ({ setdisplayresult }) => {
   return (
     <button
-      onClick={() => setdisplayresult(100)}
+      onClick={() => setdisplayresult("showResultScreen")}
       className="h-9  px-6  bg-green-500 ml-auto flex items-center  outline-double outline-green-500 ease-linear transition-[background] active:scale-95 text-white rounded-md "
     >
       End Quizz

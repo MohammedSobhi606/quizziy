@@ -3,6 +3,7 @@ import QuizzesArea from "@/components/QuizzesArea";
 import Navbare from "@/components/Navbare";
 import useMyContext from "@/context/quizzContext";
 import { useEffect } from "react";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { quizToStartObjict } = useMyContext()
@@ -10,6 +11,7 @@ export default function Home() {
   useEffect(() => {
     setstartquizzId(null) // reset quiz id when navigating to new route
   }, [])
+
   return (
     <>
 
@@ -17,6 +19,7 @@ export default function Home() {
         <Navbare />
       </header>
       <QuizzesArea />
+      <Footer />
     </>
   );
 }

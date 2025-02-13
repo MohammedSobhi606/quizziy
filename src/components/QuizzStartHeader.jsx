@@ -3,6 +3,7 @@ import React from "react";
 import { FaCode } from "react-icons/fa6";
 import { RxStopwatch } from "react-icons/rx";
 import Timer from "./Timer";
+import quizIcons from "@/Icons";
 function QuizzStartHeader({
   title,
   setTimeOut,
@@ -16,7 +17,10 @@ function QuizzStartHeader({
       <div className="center gap-2">
         {/* icons */}
         <div className="relative flex items-center justify-center max-md:w-8 max-md:h-8 w-12 h-12  p-2 max-md:p-1 bg-green-600 rounded-md shadow-md">
-          <FontAwesomeIcon icon={icon} className="w-full h-full text-white" />
+          <FontAwesomeIcon
+            icon={quizIcons[icon].icon}
+            className="w-full h-full text-white"
+          />
         </div>
         {/* title */}
         <div>

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 function page({}) {
-  const { quizToStartObjict, allquizzes } = useMyContext();
+  const { quizToStartObjict, allquizzes, selectedQuiz } = useMyContext();
   const { startquizzId } = quizToStartObjict;
   const router = useRouter();
   // عملنا كده ليه ؟ عشان وقعنا فخطا ان مينفعش نحدث الاستيت الا اما نستخدم يوزافكت او اي ايفنت هاندلر
@@ -24,7 +24,6 @@ function page({}) {
     }
   }, []);
 
-  const selectedQuiz = allquizzes.find((q) => q.id === startquizzId);
   if (!startquizzId) {
     return (
       // if no quiz to start, render a placeholder message
@@ -58,7 +57,7 @@ function page({}) {
       <div className="mt-10 center ">
         {/* questions */}
         <QuizzQuestions
-          questions={selectedQuiz.quizzQuestions}
+          quizzQuestions={selectedQuiz.quizzQuestions}
           selectedQuiz={selectedQuiz}
           setCurrentQuestion={setCurrentQuestion}
           currentQuestion={currentQuestion}
