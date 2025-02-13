@@ -17,7 +17,7 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-
+deployment Link : https://quizzy0.netlify.app/
 Quizziy: Your Ultimate Quiz Experience
 Quizziy is a dynamic and engaging quiz application designed to test your knowledge across a wide range of topics, from general knowledge to specialized subjects like Islam, technology, history, and more. Built with the MERN stack (MongoDB, Express.js, React.js, and Node.js), Quizziy offers a seamless and interactive user experience.
 
@@ -36,6 +36,7 @@ Responsive Design: Access Quizziy on any device, whether it’s a desktop, table
 
 Why Quizziy?
 Engaging and Fun: With interactive features and hand-drawn annotations (powered by Rough Notation), Quizziy makes learning enjoyable.
+
 
 Community-Driven: Share your quizzes, challenge friends, and compete on leaderboards.
 
