@@ -60,14 +60,11 @@ const QuizzBuildQuestions = ({
     textareaRefs.current = [...textareaRefs.current, createRef()]; // update textarea refs
   }
 
-  function deleteQuestion(question) {
-    const updatedQuestions = quizzQuestions.filter(
-      (q, i) => q._id !== question._id
-    );
-    // filter refs also
-    textareaRefs.current = textareaRefs.current.filter(
-      (ref, i) => quizzQuestions[i].id !== question.id
-    );
+  function deleteQuestion(question, questionIndex) {
+    console.log(questionIndex);
+    const updatedQuestions = quizzQuestions.toSpliced(questionIndex, 1);
+    textareaRefs.current = textareaRefs.current.toSpliced(questionIndex, 1);
+
     setquizzQuestions(updatedQuestions);
   }
 
@@ -83,6 +80,7 @@ const QuizzBuildQuestions = ({
 
   useEffect(() => {
     // auto focus on the last ref
+    console.log(textareaRefs.current);
 
     if (textareaRefs.current.length >= 0 && focus) {
       textareaRefs.current[textareaRefs.current.length - 1].current.focus();
@@ -116,7 +114,7 @@ const QuizzBuildQuestions = ({
             {/* delete icon */}
             {questionIndex !== 0 && (
               <FontAwesomeIcon
-                onClick={() => deleteQuestion(question)}
+                onClick={() => deleteQuestion(question, questionIndex)}
                 icon={faClose}
                 className="absolute cursor-pointer active:scale-75 transition-[scale] ease-in-out right-1 top-1 text-red-600 size-4 bg-slate-200 p-2 rounded-full   "
               />
